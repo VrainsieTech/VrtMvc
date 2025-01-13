@@ -44,17 +44,18 @@ namespace Vrainsietech\Vrtmvc;
 
  		if($con){
  			$sql = "CREATE DATABASE IF NOT EXISTS $dbName";
- 			if(mysqli_query($con,$sql)){
+ 			$dbc = mysqli_query($con,$sql);
+ 			if($dbc){
  				return 1;
  			} else {
- 				return 0;
+ 				throw new Exception("Database Creation Failed. ".mysqli_connect_error($dbc))
  			}
  		}
 
  	}
 
 
- 	/** 
+ 	   /** 
  		 * Creates a priviledged user.
  		 * 
  		 * After Database Creation, this method executes by default and uses the username provided in the .env and the created database. The method can also be executed manually if there is need to create a different user for the same database. Each time, auto called or manually called, the user created will allways have all database priviledges. That is the default setting. To manually call, provide different values for a username and password to affect or just username if using the same password.
@@ -95,7 +96,7 @@ namespace Vrainsietech\Vrtmvc;
  	 * 
  	 **/
 
- 	function vrtdb(){
+ 	protected function vrtdb(){
  		$vrtdb = mysqli_connect($dbHost,$dbUser,$dbPass,$dbName);
  		if($vrtdb){
  			return $vrtdb;
@@ -166,7 +167,7 @@ namespace Vrainsietech\Vrtmvc;
  	/**
  	 * Date/Time Formatter to YmdHis Format. Default Software timestamp
  	 * 
- 	 * By default, this software uses the hosts default timezone in the .env. To override, change the timezone value in the .env to match your local time. You can also set the default zone in your .htacess to make sure you are always safe but the .env timezone value is given priority. Pass in an argument of desired date; a day before now or a future date to have it formatted. Considering using the syntax for php datetime formating acceptable string arguments. This Method when called with no argument, gives current time.
+ 	 * By default, this software uses the hosts default timezone in the .htacess. To override, change the timezone value in the .htacess to match your local time. You can also set the default zone in your. Pass in an argument of desired date; a day before now or a future date to have it formatted. Considering using the syntax for php datetime formating acceptable string arguments. This Method when called with no argument, gives current time.
  	 * 
  	 * @param $arg string
  	 * @return string custom time from argument or current time when no argument passed in format YmdHis.
@@ -223,7 +224,8 @@ namespace Vrainsietech\Vrtmvc;
  	function cleaner($str){
  		if(!is_string($str)) return "";
  		$str= filter_var($str, FILTER_SANITIZE_STRING);
- 		$str = mysqli_real_escape_string($str);
+ 		$con = self::rootConn();
+ 		$str = mysqli_real_escape_string($con,$str);
  		return $str;
 
  	}
