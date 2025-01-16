@@ -249,7 +249,7 @@ namespace Vrainsietech\Vrtmvc;
             $redirect = substr($bg,5);
             $bg= substr($bg,0,5);
         }
-      return "<div id='$ids' class='message $bg'>
+      return "<div id='$ids' class='alert $bg'>
         $ms
         <script>kill('$ids','$redirect'); </script>
         </div>";

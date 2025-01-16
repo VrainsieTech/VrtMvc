@@ -1,0 +1,119 @@
+/* layout.css - Styles for Page Layout and Responsiveness */
+
+/* Basic Container */
+.container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 1rem; /* Add some default horizontal padding */
+}
+
+/* Media Queries (Mobile-First Approach) */
+
+/* Small screens (default styles apply here) */
+
+/* Medium screens (tablets, larger mobile devices) */
+@media (min-width: 768px) {
+    .container {
+        max-width: 750px; /* Adjust as needed */
+    }
+
+    /* Example of grid layout on larger screens */
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* Two equal columns */
+        gap: var(--spacing-unit);
+    }
+}
+
+/* Large screens (desktops) */
+@media (min-width: 992px) {
+    .container {
+        max-width: 970px; /* Adjust as needed */
+    }
+
+    .grid {
+        grid-template-columns: repeat(3, 1fr); /* Three equal columns */
+    }
+}
+
+/* Extra large screens (large desktops) */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1140px; /* Adjust as needed */
+    }
+
+    .grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* Flexbox Layout Examples */
+.flexer {
+    display: flex;
+    flex-direction: row;
+}
+
+.flexcol {
+    display: flex;
+    flex-direction: column;
+}
+
+.flxstart { justify-content: flex-start; }
+.flxcenter { justify-content: center; }
+.flxend { justify-content: flex-end; }
+.flxbetween { justify-content: space-between; }
+.flxaround { justify-content: space-around; }
+.flxevenly { justify-content: space-evenly; }
+
+.alitstart { align-items: flex-start; }
+.alitcenter { align-items: center; }
+.alitend { align-items: flex-end; }
+.alitstretch { align-items: stretch; }
+
+.flex-wrap { flex-wrap: wrap; }
+.flex-nowrap { flex-wrap: nowrap; }
+
+/* Grid Layout Examples */
+
+.grid {
+    display: grid;
+    gap: var(--spacing-unit); /* Consistent grid gap using CSS variable */
+}
+
+.grid2 { grid-template-columns: repeat(2, 1fr); }
+.grid3 { grid-template-columns: repeat(3, 1fr); }
+.grid4 { grid-template-columns: repeat(4, 1fr); }
+.grid5 { grid-template-columns: repeat(5, 1fr); }
+.grid6 { grid-template-columns: repeat(6, 1fr); }
+
+/* Example usage of grid areas */
+.grid-areas {
+    display: grid;
+    grid-template-areas:
+        "header header header"
+        "sidebar main main"
+        "footer footer footer";
+    gap: var(--spacing-unit);
+}
+
+.header { grid-area: header; }
+.sidebar { grid-area: sidebar; }
+.main { grid-area: main; }
+.footer { grid-area: footer; }
+
+/* Example of a two-column layout that stacks on smaller screens */
+.two-column-layout {
+    display: flex;
+    flex-direction: column; /* Stack on smaller screens */
+}
+
+@media (min-width: 768px) {
+    .two-column-layout {
+        flex-direction: row; /* Two columns on larger screens */
+        gap: var(--spacing-unit);
+    }
+
+    .two-column-layout > * {
+        flex: 1; /* Equal width columns */
+    }
+}

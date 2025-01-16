@@ -1,0 +1,127 @@
+/* base.css - Foundation Styles */
+
+/* Custom Properties (CSS Variables) */
+:root {
+  --primary-color: #29ABE2; /* A vibrant blue */
+  --secondary-color: #F2F2F2; /* Light gray background */
+  --accent-color: #FFD700; /* Gold for highlights */
+  --text-color: #333; /* Dark gray for text */
+  --light-text-color: #fff;
+  --border-color: #ddd;
+  --base-font-size: 16px;
+  --base-line-height: 1.5;
+  --spacing-unit: 1rem; /* Use rem for scalable spacing */
+  --border-radius: 5px;
+
+  /* Font Family (A modern sans-serif stack) */
+  --main-font: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* Reset/Normalize (Using a simplified approach) */
+*,
+*::before,
+*::after {
+  box-sizing: border-box; /* Include padding and border in element's total width and height */
+  margin: 0;
+  padding: 0;
+  overflow:auto;
+}
+
+/* Basic HTML Element Styles */
+html {
+  font-size: var(--base-font-size); /* Set base font size */
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--main-font);
+  line-height: var(--base-line-height);
+  color: var(--text-color);
+  background-color: var(--secondary-color);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--primary-color);
+}
+
+h1 {
+    font-size: 2.5rem;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+h3 {
+    font-size: 1.75rem;
+}
+
+h4 {
+    font-size: 1.5rem;
+}
+
+h5 {
+    font-size: 1.25rem;
+}
+
+h6 {
+    font-size: 1rem;
+}
+
+p {
+  margin-bottom: var(--spacing-unit);
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.3s ease; /* Smooth color transition on hover */
+}
+
+a:hover {
+  color: darken(var(--primary-color), 15%); /* Darken on hover */
+  text-decoration: underline;
+}
+
+ul, ol {
+    list-style: none; /* remove bullet points */
+    padding: 0;
+    margin: 0;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block; /* Prevents image from affecting vertical spacing */
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid var(--border-color);
+    margin: 2rem 0;
+}
+
+/* Improved Focus Styles (Accessibility) */
+*:focus {
+    outline: 3px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+/* Basic Form Styles - to be improved in components.css */
+input,
+textarea,
+select {
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: 2px solid var(--primary-color);
+}
