@@ -92,7 +92,7 @@
     grid-template-areas:
         "header header header"
         "sidebar main main"
-        "footer footer footer";
+        "sidebar footer footer";
     gap: var(--spacing-unit);
 }
 
