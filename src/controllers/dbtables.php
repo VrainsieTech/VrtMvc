@@ -7,11 +7,11 @@ use Vrainsietech\Vrtmvc\VrtDb;
  * 
  * Provide sql file with tables or create table(s) manually. Pass in the file or the sql create table statement. This function will create the table for you in the database already created. So, it is wise to call this method after you have first called the dbCreate.
  * 
- * @param $tables string sql file name or path. File must only contain sql create table statements
+ * @param string $tables sql file name or path. File must only contain sql create table statements
  * 
  * @return boolean true or false depending with outcome, ofcourse true on success
  * 
- * @throws Error when file path  is not valid, when execution fails for any reason.
+ * @throws Exception when file path  is not valid, when execution fails for any reason.
  * 
  **/
 
