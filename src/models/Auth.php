@@ -7,7 +7,7 @@ use Vrainsitech\Vrtmvc\VrtDb;
  * 
  * Handles: Registration, Login and Password Resseting. By default, to all data being stored in the database, they all have a created at value being the current time but the VrtMvc version YmdHis. All the default user table has the created_at field. Learn more about the default user table field from the registration controller.
  * 
- **/
+ */
 
 class Auth extends VrtDb {
 	protected $vrt;
@@ -22,16 +22,16 @@ class Auth extends VrtDb {
 	 * 
 	 * This method takes in four arguments. In order, Username, Email, Phone and Password. All this data needs validation done on the controller. Some other defaults will be added when data is being  saved to database. Ensure all security checks are done prior, though a last check is done here before saving.
 	 * 
-	 * @param $username string
-	 * @param $email string
-	 * @param $phone string
-	 * @param $password string
+	 * @param string $username
+	 * @param string $email
+	 * @param string $phone
+	 * @param string $password
 	 * 
 	 * @return string 'Success'
 	 * 
-	 * @throws Error on failure or validating data.
+	 * @throws Exception on failure or validating data.
 	 * 
-	 **/
+	 */
 
 	function register($username,$email,$phone,$password){
 		//Final validation.
@@ -85,14 +85,14 @@ class Auth extends VrtDb {
 	 * 
 	 * User can login with either Username or Email. Provide arguments in order.
 	 * 
-	 * @param $identifier string
-	 * @param $password string
+	 * @param string $identifier
+	 * @param string $password
 	 * 
 	 * @return string 'Success'
 	 * 
-	 * @throws Error on failure or invalid data
+	 * @throws Exception on failure or invalid data
 	 * 
-	 **/
+	 */
 
 	function login($identifier, $password){
 		//validate all args passed
@@ -193,13 +193,13 @@ class Auth extends VrtDb {
 	 * 
 	 * Confirms if the provided data is  already existing in the database or not. Provide data to check and the table to check from. Use to validate tokens during ressets or check existence of same data during registration and much pretty anything else that needs validation. Provide the arguments in order. Key, value then table.
 	 * 
-	 * @param $key string
-	 * @param $value string|int
-	 * @param $table string
+	 * @param string $key
+	 * @param string|int $value
+	 * @param string $table
 	 * 
 	 * @return int 1|0 1 if available,  0 if no similar data is available.
 	 *
-	 * @throws Error on empty $key,$value,$table provided
+	 * @throws Exception on empty $key,$value,$table provided
 	 *  
 	 **/
 
