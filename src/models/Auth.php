@@ -201,7 +201,7 @@ class Auth extends VrtDb {
 	 *
 	 * @throws Exception on empty $key,$value,$table provided
 	 *  
-	 **/
+	 */
 
 	function similar($key,$value,$table){
 		// Confirm no empties
