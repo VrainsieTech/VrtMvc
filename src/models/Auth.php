@@ -187,6 +187,48 @@ class Auth extends VrtDb {
 		}
 	}
 
+	/**
+	 * Authenticate User.
+	 * 
+	 * Confirm if user is logged in. Valid on some pages. Though each Session has its SID, we use only custom Session variables set on successful login to determine validity of user accessing the intended page. Usage in middleware.
+	 * 
+	 * @return boolean true|false
+	 * 
+	 */
+
+	function check(){
+		//Starts Session
+		session_start();
+		if(!isset($_SESSION['useris']) || empty($_SESSION['useris'])){
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	/**
+	 * Authorization.
+	 * 
+	 * Allow role based accessed to different resources. Basically, Vrtmvc users are either admin, regular, moderator. Each having access to relevant resource. Only use after authenticating user successfully.
+	 * 
+	 * @param string $role
+	 * 
+	 * @return boolean
+	 * 
+	 */
+
+	function hasPermission($role){
+		if(self::check() === true){
+		$useris = $_SESSION['useris'];
+		$data = self::fetchman(self::qryman("SELECT * FROM users WHERE id = $useris LIMIT 1"));
+		if($data['role'] === $role){
+			return true;
+		} else {
+			return false;
+		}
+		}
+	}
+
 
 	/**
 	 * Similar data in Database check.
