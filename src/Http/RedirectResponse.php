@@ -37,4 +37,19 @@ class RedirectResponse extends Response
         }
         return new static($url);
     }
+
+    /**
+     * @param string $name
+     * @param array $params
+     * @return $this
+     */
+    static function namedRoute(string $name, array $params = []): static
+    {
+        global $router; 
+        if (!isset($router)){
+            throw new \Exception('Router is not defined');
+        }
+        $url = $router->generate($name, $params);
+        return new static($url);
+    }
 }
