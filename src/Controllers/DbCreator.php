@@ -1,9 +1,12 @@
 <?php
-namespace Vrainsietech\Vrtmvc;
-use Vrainsietech\Vrtmvc\VrtDb;
+namespace Vrainsietech\Vrtmvc\Controllers;
+use Vrainsietech\Vrtmvc\Core\VrtDb;
 
-//Creates database using values provided in the .env.
+require_once __DIR__ . '/config/config.php';
+
+//Creates database using values provided in the config
 $vrt = new VrtDb();
+$db = dbCreate();
 
 if($db == 1){
 	//Creates a fully privileged user.
@@ -13,6 +16,13 @@ if($db == 1){
 
 	if($dbuser == 1){
 		//Notify Creator.
-		$alert = $vrt->swal("Database and Database User Created successfully","bgscs");
-	}
+		if(isset($_GET['alert'])){
+			if($_GET['scs']){
+				echo "<script>alert('Database and User Created successfully')</script>";
+		    } else {
+			echo "<script>alert('Database and User Creation Failed')</script>";
+		    }
+		
+	   }
+    }
 }
