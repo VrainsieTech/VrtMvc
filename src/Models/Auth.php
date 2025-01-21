@@ -52,6 +52,7 @@ class Auth extends VrtDb {
 						if($isin > 0) $exists++;
 						break;
 					}
+					if($exists > 0) break;
 				}
 
 				if($exists == 0){
@@ -59,9 +60,11 @@ class Auth extends VrtDb {
 					$password = password_hash($password, PASSWORD_DEFAULT);
 					//Set defaults
 					$created_at = $updated_at = $this->vrt->vrttime();
+					$state = 'valid';
+					$autodel = 'notset';
 
-					$create = $this->vrt->qryman("INSERT INTO $table(username,email,phone,password,created_at,updated_at)
-						VALUES('$username','$email','$phone','$password','$created_at','$updated_at')");
+					$create = $this->vrt->qryman("INSERT INTO $table(username,email,phone,password,state,created_at,updated_at,autodelete)
+						VALUES('$username','$email','$phone','$password','$state','$created_at','$updated_at','$autodel')");
 
 					if($create){
 						return "Success";
