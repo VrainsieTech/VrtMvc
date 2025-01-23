@@ -1,5 +1,5 @@
 <?php
-namespace Vrainsitech\Vrtmvc;
+namespace Vrainsitech\Vrtmvc\Models;
 use Vrainsietech\Vrtmvc\VrtDb;
 
 /**

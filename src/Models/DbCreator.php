@@ -1,5 +1,5 @@
 <?php
-namespace Vrainsietech\Vrtmvc\Controllers;
+namespace Vrainsietech\Vrtmvc\Models;
 use Vrainsietech\Vrtmvc\Core\VrtDb;
 
 require_once __DIR__ . '/config/config.php';

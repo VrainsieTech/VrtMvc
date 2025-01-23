@@ -1,15 +1,15 @@
 <?php
-namespace Vrainsietech\Vrtmvc\Controllers;
+namespace Vrainsietech\Vrtmvc\Models;
 use Vrainsietech\Vrtmvc\Core\VrtDb;
 
 /**
  * Look up for individual or general data.
  * 
- * Use methods from this class with other models. The main working usage here is to fetch data, an individual data eg by id or a whole table depending with the conditions (sql qry statement(s)) passed to the methods. This serves like the main abstract class that can be implemented anywhere else for the purposes of  data fetching. Eache method has it's own needs but almost all will need a table you are fetching from and a string of querry you are looking for in Key='Value' format and any other conditions  needed to achieve what is your desire.
+ * Use methods from this class with other models. The main working usage here is to fetch data, an individual data eg by id or a whole table depending with the conditions (sql qry statement(s)) passed to the methods. This serves like the main abstract class that can be implemented anywhere else for the purposes of  data fetching. Each method has it's own needs but almost all will need a table you are fetching from and a string of querry you are looking for in Key='Value' format and any other conditions  needed to achieve what is your desire.
  * 
  */
 
-class ShowController extends VrtDb {
+class Show extends VrtDb {
 	private $vrt;
 
 	function __construct(VrtDb $vrt){

@@ -1,9 +1,9 @@
 <?php
-namespace Vrainsietech\Vrtmvc\Controllers;
+namespace Vrainsietech\Vrtmvc\Models;
 use Vrainsietech\Vrtmvc\Core\VrtDb;
 
 
-class UpdateController extends VrtDb {
+class Update extends VrtDb {
 private $vrt;
 function __construct(VrtDb $vrt){
 	$this->vrt = $vrt;
@@ -12,7 +12,7 @@ function __construct(VrtDb $vrt){
 /**
  * Update Database Tables.
  * 
- * Provide the needed table that needs update along with Key='Value' string or commaseparated and Condition to successfully update the given row(s) of data in the given table. Be sure to give condition to effectively affect the number of rows needed.
+ * Provide the needed table that needs update along with Key='Value' string or comma separated and Condition to successfully update the given row(s) of data in the given table. Be sure to give condition to effectively affect the number of rows needed.
  * 
  * @param $table Target table in the database.
  * @param $qry The Key='Value' pair(s) of statement to be worked on.
