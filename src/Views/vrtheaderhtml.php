@@ -1,11 +1,12 @@
 <?php
-namespace Vrainsietech\Vrtmvc\Controllers;
-use Vrainsietech\Vrtmvc\Controllers\Seo;
+
+use Vrainsietech\Vrtmvc\Helpers\Seo;
+
 $title = Seo::title();
 $description = Seo::description();
 $theme = Seo::themeColor();
 $canorgurl = $ogurl = Seo::canorgurl();
-$favicons = Seo::favicons();
+$favicons = Seo::faviconsurl();
 $ogtitle = Seo::ogtitle();
 $ogImageSchema = Seo::ogimage(); // Gives full url 'https://site/path/to/image'
 $logo = Seo::logo(); // Full Url;
@@ -60,11 +61,11 @@ $logo = Seo::logo(); // Full Url;
     
     
     
-  <link rel="stylesheet" href='/vrtcss/base.css'>
-  <link rel="stylesheet" href='/vrtcss/layout.css'>
-  <link rel="stylesheet" href='/vrtcss/components.css'>
-  <link rel="stylesheet" href='/vrtcss/utilities.css'>
-  <script src='/vrtjs/vrtjs.js'></script>
+  <link rel="stylesheet" href='/assets/vrtcss/base.css'>
+  <link rel="stylesheet" href='/assets/vrtcss/layout.css'>
+  <link rel="stylesheet" href='/assets/vrtcss/components.css'>
+  <link rel="stylesheet" href='/assets/vrtcss/utilities.css'>
+  <script src='/assets/vrtjs/vrtjs.js'></script>
   
 </head>
 <body>
