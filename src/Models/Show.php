@@ -31,7 +31,7 @@ class Show extends VrtDb {
 	 */
 
 	function find($table, $key, $value){
-		$res = $this->vrt->qryman("SELECT * FROM $table WHERE $key = $value LIMIT 1");
+		$res = $this->vrt->queryman("SELECT * FROM $table WHERE $key = $value LIMIT 1");
 		if($res){
 			if($this->vrt->rowman($res) == 1){
 				$data = $this->vrt->fetchman($res);
@@ -77,14 +77,17 @@ class Show extends VrtDb {
 		}
 
 		$order = $order[1]; 
+		$column = $this->vrt->cleaner($column);
 
 		if($limit === 'all') $limits ="";
 
-		$res = $this->vrt->qryman("SELECT * FROM $table $filter ORDER BY $column $order $limits ");
+		$res = $this->vrt->queryman("SELECT * FROM $table $filter ORDER BY $column $order $limits ");
 		if($res){
 			if($this->vrt->rowman($res) == 1){
-				$data = $this->vrt->fetchman($res);
+			while($data = $this->vrt->fetchman($res)){
 				return $data;
+			}
+
 			} else {
 				throw new Exception("No records Found");
 			}
