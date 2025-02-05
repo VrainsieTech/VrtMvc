@@ -1,4 +1,4 @@
-<?php 
+getenv(<?php 
 namespace Vrainsietech\Vrtmvc;
 
 /**
@@ -23,10 +23,10 @@ namespace Vrainsietech\Vrtmvc;
 
  	function dbCreate() {
 
-      $dbName =DB_NAME;
-      $dbUser =DB_USER;
-      $dbPass =DB_PASS;
-      $dbHost =DB_HOST;
+      $dbName =getenv(DB_NAME);
+      $dbUser =getenv(DB_USER);
+      $dbPass =getenv(DB_PASS);
+      $dbHost =getenv(DB_HOST);
 
  		//Get root connection
  		$con = self::rootConn();
@@ -60,7 +60,7 @@ namespace Vrainsietech\Vrtmvc;
  	function dbUser($dbpass,$dbuser){
  		//Get root Conn
  		$con = self::rootConn();
-    $dbName = DB_NAME;
+    $dbName = getenv(DB_NAME);
 
  		$sql ="CREATE USER '$dbuser'@'localhost' IDENTIFIED BY '$dbpass';
  		GRANT ALL PRIVILEGES ON $dbName.* TO '$dbuser'@'localhost';
@@ -86,8 +86,12 @@ namespace Vrainsietech\Vrtmvc;
  	 * 
  	 */
 
- 	protected function vrtdb(){
- 		$vrtdb = mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_NAME);
+ 	function vrtdb(){
+      $dbName =getenv(DB_NAME);
+      $dbUser =getenv(DB_USER);
+      $dbPass =getenv(DB_PASS);
+      $dbHost =getenv(DB_HOST);
+ 		$vrtdb = mysqli_connect($dbHost,$dbUser,$dbPass,$dbName);
  		if($vrtdb){
  			return $vrtdb;
  		} else {
@@ -214,7 +218,7 @@ namespace Vrainsietech\Vrtmvc;
  	function cleaner($str){
  		if(!is_string($str)) return "";
  		$str= filter_var($str, FILTER_SANITIZE_STRING);
- 		$con = self::rootConn();
+ 		$con = self::vrtdb();
  		$str = mysqli_real_escape_string($con,$str);
  		return $str;
 
@@ -241,7 +245,7 @@ namespace Vrainsietech\Vrtmvc;
         }
       return "<div id='$ids' class='alert $bg'>
         $ms
-        <script>kill('$ids','$redirect'); </script>
+        <script>swal('$ids','$redirect'); </script>
         </div>";
     }
 
