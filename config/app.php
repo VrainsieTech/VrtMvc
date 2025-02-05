@@ -2,12 +2,12 @@
 
 return [
     'name' => getenv('APP_NAME', 'My Application'),
-    'debug' => getenv('APP_DEBUG', false),
-    'timezone' => 'UTC',
+    'debug' => getenv('APP_DEBUG', true),
+    'timezone' => 'UTC'
 ];
 
 // Error reporting (recommended settings)
-if (getenv('APP_DEBUG')) {
+if (getenv('APP_DEBUG') === true) {
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
