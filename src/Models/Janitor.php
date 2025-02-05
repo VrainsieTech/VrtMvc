@@ -104,12 +104,12 @@ class Janitor extends VrtDb {
 			$rule = "WHERE $condition";
 		}
 
-		$res = $this->vrt->qryman("DELETE FROM $table $rule");
+		$res = $this->vrt->queryman("DELETE FROM $table $rule");
 
 		if($res){
 			return mysqli_affected_rows($this->vrt->vrtdb())
 		} else {
-			throw new Exception("Reverting Failed+. Try Again");
+			throw new Exception("Deletion Failed. Try Again");
 		}
 	}
 
@@ -126,7 +126,7 @@ class Janitor extends VrtDb {
 
 	function AutoDel($table){
 		$timenow= $this->vrt->vrttime();
-		$this->vrt->qryman("DELETE FROM $table WHERE autodelete <= '$timenow'");
+		$this->vrt->queryman("DELETE FROM $table WHERE autodelete <= '$timenow'");
 	}
 
 
