@@ -1,4 +1,4 @@
-getenv(<?php 
+<?php 
 namespace Vrainsietech\Vrtmvc;
 
 /**
@@ -37,7 +37,7 @@ namespace Vrainsietech\Vrtmvc;
  			if($dbc){
  				return 1;
  			} else {
- 				throw new Exception("Database Creation Failed. ".mysqli_connect_error($dbc))
+ 				throw new Exception("Database Creation Failed. ".mysqli_connect_error($dbc));
  			}
  		}
 
