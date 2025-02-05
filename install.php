@@ -56,7 +56,7 @@ if (!file_exists('.env')) {
     } else {
         echo "Stopping Install "; loader(8); echo "\n";
         echo "Installation process stopped. Using previous install.\n";
-        exit();
+        exit(1);
     }
 }
 
@@ -81,17 +81,17 @@ $dbPassword = readline("Database Password: ");
 
 $envFile = file_get_contents('.env');
 $envFile = preg_replace('/DB_HOST=/', 'DB_HOST=' . ($dbHost ?: 'localhost'), $envFile);
-$envFile = preg_replace('/DB_DATABASE=/', 'DB_DATABASE=' . $dbName, $envFile);
-$envFile = preg_replace('/DB_USERNAME=/', 'DB_USERNAME=' . $dbUser, $envFile);
-$envFile = preg_replace('/DB_PASSWORD=/', 'DB_PASSWORD=' . $dbPassword, $envFile);
+$envFile = preg_replace('/DB_NAME=/', 'DB_NAME=' . $dbName, $envFile);
+$envFile = preg_replace('/DB_USER=/', 'DB_USER=' . $dbUser, $envFile);
+$envFile = preg_replace('/DB_PASS=/', 'DB_PASS=' . $dbPassword, $envFile);
 file_put_contents('.env', $envFile);
 
 echo "Database configuration updated in .env.\n";
 
 // 4. Run Migrations (if applicable)
-if (file_exists('artisan')) { // Check if you have an artisan-like command
+if (file_exists('vrtcli')) { // Check if you have an artisan-like command
     echo "Running database migrations...\n";
-    passthru('php artisan migrate'); // Or your framework's migration command
+    passthru('php vrtcli migrate'); // Or your framework's migration command
 } else {
     echo "No migrations found.\n";
 }
