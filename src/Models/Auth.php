@@ -1,11 +1,11 @@
 <?php
 namespace Vrainsietech\Vrtmvc\Models;
-use Vrainsitech\Vrtmvc\VrtDb;
+use Vrainsitech\Vrtmvc\Core\VrtDb;
 
 /**
  * Authentication Manager.
  * 
- * Handles: Registration, Login and Password Resseting. By default, to all data being stored in the database, they all have a created at value being the current time but the VrtMvc version YmdHis. All the default user table has the created_at field. Learn more about the default user table field from the registration controller.
+ * Handles: Registration, Login and Password Resseting. By default, to all data being stored in the database, they all have a created at value being the current time but the VrtMvc version YmdHis. All the default user table have the created_at field. Learn more about the default user table fields from the framework docs unders table defaults.
  * 
  */
 
@@ -45,7 +45,7 @@ class Auth extends VrtDb {
 				$exists = 0;
 				$keys = array('username','email','phone');
 				$values = array($username,$email,$phone);
-				$table = "users"; //You can set different users' table in .env
+				$table = "users"; //Adjust as needed
 				foreach($keys as $key){
 					foreach($values as $value){
 						$isin = self::similar($key,$value,$table);
@@ -63,7 +63,7 @@ class Auth extends VrtDb {
 					$state = 'valid';
 					$autodel = 'notset';
 
-					$create = $this->vrt->qryman("INSERT INTO $table(username,email,phone,password,state,created_at,updated_at,autodelete)
+					$create = $this->vrt->queryman("INSERT INTO $table(username,email,phone,password,state,created_at,updated_at,autodelete)
 						VALUES('$username','$email','$phone','$password','$state','$created_at','$updated_at','$autodel')");
 
 					if($create){
@@ -126,11 +126,11 @@ class Auth extends VrtDb {
 				$checks = array($key1,$key2);
 				foreach($checks as $check){
 					$isin = self::similar($check,$identifier,$table);
-					if($isin > 1) $valid_user++;
+					if($isin > 0) $valid_user++;
 				}
 
 				if($valid_user > 0){
-					$data = $this->vrt->qryman("SELECT * FROM $table WHERE username = '$identifier' OR email = '$identifier' LIMIT 1");
+					$data = $this->vrt->queryman("SELECT * FROM $table WHERE username = '$identifier' OR email = '$identifier' LIMIT 1");
 					$pass_hash = $data['password'];
 					$logtrials = $data['logtrials'];
 					$banlifts = $data['banlifts'];
@@ -167,7 +167,7 @@ class Auth extends VrtDb {
 
 					} else {
 						//try to set free then retry login
-						if($timenow > $banlifts){
+						if($timenow >= $banlifts){
 							$this->vrt->updates("UPDATE $table SET banlifts = 'notbanned',
 							logtrials = 5
 							WHERE id = $useris LIMIT 1");
@@ -223,7 +223,7 @@ class Auth extends VrtDb {
 	function hasPermission($role){
 		if(self::check() === true){
 		$useris = $_SESSION['useris'];
-		$data = self::fetchman(self::qryman("SELECT * FROM users WHERE id = $useris LIMIT 1"));
+		$data = self::fetchman(self::queryman("SELECT * FROM users WHERE id = $useris LIMIT 1"));
 		if($data['role'] === $role){
 			return true;
 		} else {
@@ -266,7 +266,7 @@ class Auth extends VrtDb {
 			$key = $this->vrt->cleaner($key);
 			$value = $this->vrt->cleaner($value);
 			$table = $this->vrt->cleaner($table);
-			return $this->vrt->rowman($this->vrt->qryman("SELECT * $table WHERE $key = '$value' LIMIT 1"));
+			return $this->vrt->rowman($this->vrt->queryman("SELECT * $table WHERE $key = '$value' LIMIT 1"));
 		} else {
 			throw new Exception("Please Provide All Parameters...");
 		}
