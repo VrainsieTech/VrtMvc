@@ -41,7 +41,7 @@ class Janitor extends VrtDb {
 			");
 
 		if($res){
-			return mysqli_affected_rows($this->vrt->vrtdb())
+			return mysqli_affected_rows($this->vrt->vrtdb());
 		} else {
 			throw new Exception("Soft Deletion Failed. Try Again");
 		}
@@ -77,7 +77,7 @@ class Janitor extends VrtDb {
 			");
 
 		if($res){
-			return mysqli_affected_rows($this->vrt->vrtdb())
+			return mysqli_affected_rows($this->vrt->vrtdb());
 		} else {
 			throw new Exception("Reverting Failed. Try Again");
 		}
@@ -107,7 +107,7 @@ class Janitor extends VrtDb {
 		$res = $this->vrt->queryman("DELETE FROM $table $rule");
 
 		if($res){
-			return mysqli_affected_rows($this->vrt->vrtdb())
+			return mysqli_affected_rows($this->vrt->vrtdb());
 		} else {
 			throw new Exception("Deletion Failed. Try Again");
 		}

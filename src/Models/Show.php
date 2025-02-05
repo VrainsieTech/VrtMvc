@@ -61,12 +61,12 @@ class Show extends VrtDb {
 	 * 
 	 */
 
-	function findAll($table, $order = array($column ='id','ASC'), $limit = 10, $soft = 'false'){
+	function findAll($table, $order = ['id','ASC'], $limit = 10, $soft = 'false'){
 
 		$orders = array('ASC','DESC');
 		$limits = "LIMIT $limit";
 		if(!in_array($order[1],$orders)){
-			throw new Exception("ORDER BY Clause can only be either 'ASC' or 'DESC'")
+			throw new Exception("ORDER BY Clause can only be either 'ASC' or 'DESC'");
 			return;
 		}
 
@@ -76,12 +76,12 @@ class Show extends VrtDb {
 			$filter = "WHERE autodelete = 'notset'";
 		}
 
-		$order = $order[1]; 
-		$column = $this->vrt->cleaner($column);
+		$direction = $order[1]; 
+		$column = $this->vrt->cleaner($order[0]);
 
 		if($limit === 'all') $limits ="";
 
-		$res = $this->vrt->queryman("SELECT * FROM $table $filter ORDER BY $column $order $limits ");
+		$res = $this->vrt->queryman("SELECT * FROM $table $filter ORDER BY $column $direction $limits ");
 		if($res){
 			if($this->vrt->rowman($res) == 1){
 			while($data = $this->vrt->fetchman($res)){

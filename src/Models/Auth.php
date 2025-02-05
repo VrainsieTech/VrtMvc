@@ -72,7 +72,7 @@ class Auth extends VrtDb {
 						throw new Exception("Registration Failed. Please Try Again.");
 					}
 				} else {
-					throw new Exception("Sorry, $key has already been used.")
+					throw new Exception("Sorry, $key has already been used.");
 				}
 
 			} else {
@@ -144,7 +144,7 @@ class Auth extends VrtDb {
 							$_SESSION['useris'] = $useris;
 							//Just for any reason, reset logtrials
 							if($logtrials < 5){
-								$this->vrt->updates("UPDATE $table SET logtrials = 5 WHERE id = $useris LIMIT 1")
+								$this->vrt->updates("UPDATE $table SET logtrials = 5 WHERE id = $useris LIMIT 1");
 							}
 							return "Success";
 						} else {
