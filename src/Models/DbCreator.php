@@ -6,23 +6,19 @@ require_once __DIR__ . '/config/config.php';
 
 //Creates database using values provided in the config
 $vrt = new VrtDb();
-$db = dbCreate();
+$db = $vrt->dbCreate();
+$alert="";
 
 if($db == 1){
 	//Creates a fully privileged user.
-	$dbpass = ENV('orgDbPass');
-	$dbuser = ENV('orgDbUser');
+	$dbpass = getenv('DB_PASS');
+	$dbuser = getenv('DB_USER');
 	$dbuser = $vrt->dbUser($dbpass, $dbname);
 
 	if($dbuser == 1){
 		//Notify Creator.
-		if(isset($_GET['alert'])){
-			if($_GET['scs']){
-				echo "<script>alert('Database and User Created successfully')</script>";
-		    } else {
-			echo "<script>alert('Database and User Creation Failed')</script>";
-		    }
-		
-	   }
+		$alert = $vrt->swal("Database and User Created Successfully.","bgscs");
+    } else {
+    	$alert = $vrt->swal("Database and User Creation Failed.","bgerr");
     }
 }
