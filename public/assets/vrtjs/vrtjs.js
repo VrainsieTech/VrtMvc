@@ -13,7 +13,7 @@ function showHide(elm) {
 
 
 
-function kill(elm,rdr ='nn') {
+function swal(elm,rdr ='nn') {
     //err scs handler
     const element = document.getElementById(elm);
     setTimeout(function(){
