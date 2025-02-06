@@ -1,2 +1,2 @@
 @echo off
-php "~pd0install.php" %*
+php "%~pd0install.php" %*
