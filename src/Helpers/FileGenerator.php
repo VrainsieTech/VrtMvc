@@ -21,6 +21,7 @@ namespace Vrainsietech\Vrtmvc\Controllers;
 use Vrainsietech\Vrtmvc\Http\Request;
 use Vrainsietech\Vrtmvc\Http\Response;
 
+
 class $controllerName
 {
     public function index(Request \$request)
@@ -32,6 +33,44 @@ EOT;
 
         file_put_contents($controllerPath, $controllerContent);
         echo "Controller '$controllerName' created successfully.\n";
+    }
+
+
+public static function createModel(string $modelName): void
+    {
+        $modelPath = __DIR__ . '/../../src/Models/' . $modelName . '.php';
+
+        if (file_exists($modelPath)) {
+            echo "Model '$modelName' already exists.\n";
+            return;
+        }
+
+        $modelContent = <<<EOT
+<?php
+
+namespace Vrainsietech\Vrtmvc\Models;
+
+use Vrainsietech\Vrtmvc\Core\Models;
+
+
+class $modelName extends Model
+{
+    private $table = strtolower($modelName);
+
+    public function all()
+    {
+        return Model::findAll();
+    }
+
+    public function find(1)
+    {
+        return Model::find(1);
+    }
+}
+EOT;
+
+        file_put_contents($modelPath, $modelContent);
+        echo "Model '$modelName' created successfully.\n";
     }
 
     public static function createView(string $viewName): void
