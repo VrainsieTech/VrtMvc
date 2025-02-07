@@ -1,5 +1,41 @@
 const  app_version = "1.0.0"; //PWA app versioning
 
+document.addEventListener("DOMContentLoaded", function () {
+    window.vrtmvc = {
+        ajax: function (url, data = {}, method = "POST", callback = null) {
+            fetch(url, {
+                method: method,
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-Requested-With": "XMLHttpRequest"
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (callback) callback(result);
+            })
+            .catch(error => console.error("AJAX Error:", error));
+        },
+
+        submitForm: function (formId, callback) {
+            let form = document.getElementById(formId);
+            if (!form) return;
+
+            form.addEventListener("submit", function (event) {
+                event.preventDefault();
+                let formData = new FormData(form);
+                let data = Object.fromEntries(formData.entries());
+
+                window.vrtmvc.ajax(form.action, data, form.method, function (response) {
+                    if (callback) callback(response);
+                });
+            });
+        }
+    };
+});
+
+
 function nav(pg) {location.href=pg;}
 
 function showHide(elm) {
