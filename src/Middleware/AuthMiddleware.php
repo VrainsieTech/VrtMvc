@@ -5,7 +5,7 @@ namespace Vrainsietech\Vrtmvc\Middleware;
 use Vrainsietech\Vrtmvc\Http\Request;
 use Vrainsietech\Vrtmvc\Http\RedirectResponse;
 use Closure;
-use Vrainsietech\Vrtmvc\Models\Auth; 
+use Vrainsietech\Vrtmvc\Core\Auth; 
 
 class AuthMiddleware
 {

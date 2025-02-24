@@ -5,7 +5,7 @@ namespace Vrainsietech\Vrtmvc\Middleware;
 use Vrainsietech\Vrtmvc\Http\Request;
 use Vrainsietech\Vrtmvc\Http\Response; // Or throw an exception
 use Closure;
-use Vrainsietech\Vrtmvc\Models\Auth;
+use Vrainsietech\Vrtmvc\Core\Auth;
 
 class AuthorizeMiddleware
 {
