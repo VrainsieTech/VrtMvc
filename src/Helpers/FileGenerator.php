@@ -14,29 +14,29 @@ class FileGenerator
         }
 
         $controllerContent = <<<EOT
-<?php
+        <?php
 
-namespace Vrainsietech\Vrtmvc\Controllers;
+        namespace Vrainsietech\Vrtmvc\Controllers;
 
-use Vrainsietech\Vrtmvc\Http\Request;
-use Vrainsietech\Vrtmvc\Http\Response;
+        use Vrainsietech\Vrtmvc\Http\Request;
+        use Vrainsietech\Vrtmvc\Http\Response;
 
 
-class $controllerName
-{
-    public function index(Request \$request)
-    {
-        return new Response("Hello from {$controllerName}!");
-    }
-}
-EOT;
+        class $controllerName
+        {
+            public function index(Request \$request)
+            {
+                return new Response("Hello from {$controllerName}!");
+            }
+        }
+        EOT;
 
         file_put_contents($controllerPath, $controllerContent);
         echo "Controller '$controllerName' created successfully.\n";
     }
 
 
-public static function createModel(string $modelName): void
+    public static function createModel(string $modelName): void
     {
         $modelPath = __DIR__ . '/../../src/Models/' . $modelName . '.php';
 
@@ -46,31 +46,59 @@ public static function createModel(string $modelName): void
         }
 
         $modelContent = <<<EOT
-<?php
+        <?php
 
-namespace Vrainsietech\Vrtmvc\Models;
+        namespace Vrainsietech\Vrtmvc\Models;
 
-use Vrainsietech\Vrtmvc\Core\Models;
+        use Vrainsietech\Vrtmvc\Core\Models;
 
 
-class $modelName extends Model
-{
-    private $table = strtolower($modelName);
+        class $modelName extends Model
+        {
+            private $table = strtolower($modelName);
 
-    public function all()
-    {
-        return Model::findAll();
-    }
+            public function all()
+            {
+                return Model::findAll();
+            }
 
-    public function find(1)
-    {
-        return Model::find(1);
-    }
-}
-EOT;
+            public function find(1)
+            {
+                return Model::find(1);
+            }
+        }
+        EOT;
 
         file_put_contents($modelPath, $modelContent);
         echo "Model '$modelName' created successfully.\n";
+    }
+
+
+    public static function createService(string $serviceName): void
+    {
+        $modelPath = __DIR__ . '/../../src/Services/' . $serviceName . '.php';
+
+        if (file_exists($servicePath)) {
+            echo "Service '$serviceName' already exists.\n";
+            return;
+        }
+
+        $serviceContent = <<<EOT
+        <?php
+
+        namespace Vrainsietech\Vrtmvc\Services;
+
+        class $serviceName
+        {
+            public function $serviceName()
+            {
+                return "I am $serviceName and I am ready to serve. Just be sure to register me.";
+            }
+        }
+        EOT;
+
+        file_put_contents($servicePath, $serviceContent);
+        echo "Service '$serviceName' created successfully.\n";
     }
 
     public static function createView(string $viewName): void
@@ -83,23 +111,23 @@ EOT;
         }
 
         $viewContent = <<<EOT
-<?php
+        <?php include "header.php";?>
 
-include "header.php"
+        <section>
+          <div class="flexer flxcenter">
+          <div class="btn-primary text-center">Hi, I am a div in the center at the top of this file.
+           I am in View $viewName.</div>
+          </div>
+        </section>
 
-?>
-
-<section>
-  <div class="flexer flxcenter">
-  <div class="btn-primary text-center">Hi, I am a div in the center at the top of this file.
-   I am in View $viewName.</div>
-  </div>
-</section>
-
-<?php include "footer.php";?>
-EOT;
+        <?php include "footer.php";?>
+        EOT;
 
         file_put_contents($viewPath, $viewContent);
         echo "View '$viewName' created successfully.\n";
     }
+
+
+
+    //End of class
 }
