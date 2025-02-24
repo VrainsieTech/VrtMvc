@@ -4,7 +4,7 @@ namespace Vrainsietech\Vrtmvc\Core;
 /**
  * Views Templating Engine.
  * 
- * This Engine implements an easier way to pass variables to views. It reduces the task of having to use the php native tagging open and closing tags and many echos in html scripts. Its safe to use in a javascript script as it only use '{{$somevar}}' unike the js that use '${somevar}'. The syntax is safe for universal passing of php vars to the views files. Remember to make sure every view file ends with a .php extension to make this work well without issue.
+ * This Engine implements an easier way to pass variables to views. It reduces the task of having to use the php native tagging open and closing tags and many echos in html scripts. Its safe to use in a javascript script as it only use '{{somevar}}' unlike the js that use '${somevar}'. The syntax is safe for universal passing of php vars to the views files. Remember to make sure every view file ends with a .php extension to make this work well without issue.
  * 
  * @param string $viewPath The path to view file.
  * @param string $errorViewPath [Optional] The path to a custom 404 page in case $viewPath fails.
