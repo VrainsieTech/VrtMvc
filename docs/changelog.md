@@ -30,5 +30,5 @@ For upgrading instructions, refer to the [Upgrade Guide](upgrade.md).
 
 ---
 
-For more details, visit our [GitHub repository](https://github.com/your-repo/vrtmvc).
+For more details, visit our [GitHub repository](https://github.com/vrainsietech/vrtmvc).
 

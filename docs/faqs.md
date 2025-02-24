@@ -45,7 +45,7 @@ Use the built-in CLI tool:
 ## 7. How do I define routes?
 Routes are defined in `routes/web.php`:
 ```php
-Route::get('/home', [HomeController::class, 'index']);
+$router->get('/home', [HomeController::class, 'index']);
 ```
 
 ## 8. How do I enable authentication?
@@ -59,7 +59,7 @@ This sets up login, registration, and password reset.
 Middleware is defined in `src/Middleware/`. Register it in `config/middleware.php`:
 ```php
 return [
-    'auth' => App\Middleware\AuthMiddleware::class,
+    'auth' => Vrainsietech\VrtMvc\Middleware\AuthMiddleware::class,
 ];
 ```
 Apply it to routes as needed:

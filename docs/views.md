@@ -1,67 +1,82 @@
-# Views in VrtMVC
+# VrtMVC View System
 
-## Overview
-Views in VrtMVC are responsible for rendering the user interface. They are stored in the `src/Views/` directory and use the framework’s templating engine.
+The VrtMVC framework provides a lightweight and flexible templating system for rendering views. It allows dynamic data injection, partial view inclusion, and error handling.
 
-## Creating a View
-You can create a view manually or use the CLI:
-```bash
-./vrtcli make:view home
-```
-This generates `src/Views/home.php`.
+## 1. View Structure
+By default, when a view is created using the CLI, it follows this structure:
 
-## Basic View Structure
-A typical view file contains HTML with embedded PHP for dynamic content:
 ```php
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Home</title>
-</head>
-<body>
-    <h1>Welcome, <?= $name; ?>!</h1>
-</body>
-</html>
+<?php include "header.php"; ?>
+<section>
+    I am in view {{ viewName }}. Add any HTML tags within this section
+</section>
+<?php include "footer.php"; ?>
 ```
 
-## Rendering a View
-Views are returned from a controller using the `view()` helper:
+- `header.php` contains all necessary HTML opening tags, metadata (from the `Seo` class), required assets, the navigation sidebar and topbar and the main layout opening.
+- `footer.php` closes the main layout, body, and HTML tags.
+- Users can manually add asset links if they create a view without the CLI.
+
+## 2. Rendering Views
+Views are PHP files that contain HTML and dynamic content. They are rendered using the `Response` class.
+
 ```php
-class HomeController extends Controller {
-    public function index() {
-        return view('home', ['name' => 'VrtMVC']);
-    }
-}
+return (new Response())->view('home', ['title' => 'Welcome', 'message' => 'Hello, VrtMVC!']);
 ```
 
-## Template Inheritance
-VrtMVC supports template inheritance using layouts. Example layout file `layout.php`:
+This will load the `Views/home.php` file and pass the `title` and `message` variables to it.
+
+## 3. Passing Data to Views
+Data can be passed using the `with()` method:
+
 ```php
-<!DOCTYPE html>
-<html>
-<head>
-    <title><?= $title; ?></title>
-</head>
-<body>
-    <?= $content; ?>
-</body>
-</html>
+$view = new Views('Views/home.php');
+$view->with('title', 'Welcome to VrtMVC')->with('message', 'Hello, World!');
+$view->render();
 ```
 
-To extend the layout in a view:
+Inside `home.php`, you can access these variables using the double curly braces syntax:
+
+```html
+<h1>{{ title }}</h1>
+<p>{{ message }}</p>
+```
+
+## 4. Including Partial Views
+Since `header.php` and `footer.php` are included by default, users only need to focus on content within the `<section>` tag.
+
+Additional reusable components like sidebars or navigation are by default added. To change the feel to your need, edit the `Navigation` class in `src/Helpers/Navigation.php`
+
+By default, the CLI generated View is responsive.
+
+
+## 5. Error Handling in Views
+If a view file does not exist, the framework will automatically render a 404 error view located at `Views/errors/404.php` (if available). Otherwise, a default error message will be shown.
+
 ```php
-<?php $title = 'Dashboard'; ?>
-<?php $content = '<h1>Welcome to the dashboard</h1>'; ?>
+$view = new Views('Views/nonexistent.php', 'Views/errors/404.php');
+$view->render();
 ```
 
-## Including Partial Views
-You can include partials using:
-```php
-<?php include 'partials/navbar.php'; ?>
+## 6. Asset Management
+CSS and JavaScript assets are automatically included in `header.php`. Users can:
+- Define custom styles within `base`, `components`, `utilities`, and `layout`.
+- Add additional asset links manually in `header.php` or within the specific view file if necessary.
+
+Example manual inclusion:
+
+```html
+<link rel="stylesheet" href="/assets/css/custom-style.css">
+<script src="/assets/js/custom-script.js"></script>
 ```
 
-## Summary
-- Views define the UI and use the templating engine
-- Use the `view()` helper to render views from controllers
-- Supports template inheritance and partials for modular design
+## 7. Summary
+- Views follow a default structure with `header.php` and `footer.php`.
+- Use `Response->view()` to render views.
+- Pass data using `with()` or as an associative array.
+- Include reusable components with `include`.
+- Handle missing views with an error page.
+- Assets are managed through `header.php`, with customization available in predefined CSS structures.
+
+This system ensures a simple yet powerful way to manage views in VrtMVC.
 

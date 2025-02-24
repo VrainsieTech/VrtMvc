@@ -4,7 +4,7 @@
 VrtMVC comes with built-in AJAX support, allowing dynamic and asynchronous data handling without requiring developers to write additional JavaScript functions or files.
 
 ## Built-in JavaScript Helper
-A global JavaScript helper (`vrtmvc.js`) is included in the `public/js/` directory. It provides two key functions:
+A global JavaScript helper (`vrtjs.js`) is included in the `public/assets/vrtjs` directory. It provides two key functions:
 
 ### 1. `vrtmvc.ajax(url, data, method, callback)`
 This function performs an AJAX request and processes the response.
@@ -31,14 +31,15 @@ vrtmvc.submitForm("loginForm", function(response) {
 ```
 
 ## Controller Support for AJAX
-Extend controllers from `BaseController` to return JSON responses.
+Extend controllers from base `Controller` to return JSON responses.
 ```php
 namespace Vrainsietech\Vrtmvc\Controllers;
 
 use Vrainsietech\Vrtmvc\Core\Request;
 use Vrainsietech\Vrtmvc\Core\Response;
+use Vrainsietech\Vrtmvc\Core\Controller;
 
-class UserController extends BaseController {
+class UserController extends Controller {
     public function getUsers(Request $request, Response $response) {
         $users = User::all();
         return $this->jsonResponse($response, $users);

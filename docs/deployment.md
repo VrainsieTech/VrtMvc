@@ -26,11 +26,12 @@ composer install --no-dev --optimize-autoloader
 ```
 
 ### 3. Configuring the Environment
-- Copy `.env.example` to `.env`:
-  ```bash
-  cp .env.example .env
-  ```
 - Update database credentials and other settings in the `.env` file.
+That is if there is need for that or, if you can run `./install` do it to save you the time.
+Be sure to change the `APP_ENV` to 'production' once done. 
+
+Or:
+Dynamically apply changes on runtime with dynamic config setting. If not sure how, check [Configuration](configuration.md)
 
 ### 4. Setting File Permissions
 Ensure correct file permissions:
@@ -84,6 +85,16 @@ Restart Nginx:
 systemctl restart nginx
 ```
 
+### Cpanel Configuration
+For Cpanel:
+- Login to your account.
+- Locate and open filemanager.
+- Open the public folder.
+- With your easiest way, upload your files.
+- Extract and do any changes in the `.env` if you are not able to access CLI.
+- Create `index.php` at the root of `public` and edit it to point to your app's entry point.
+
+
 ### 6. Running Migrations
 Migrate the database:
 ```bash
@@ -103,6 +114,10 @@ Start the application server if needed:
 ./vrtcli serve
 ```
 Or access it through your domain.
+
+For some cases, accessing CLI on cpanel is always hard or confusing for begginers, in this case if you are not able to, just run all the needed CLI commands on your local working environment then when you truly are sure you are ready for production, edit the `APP_ENV` and set it to `production` you can always edit it anywhere though. 
+
+Create a zip for your project and upload it to cpanel.
 
 ## Summary
 - Upload files and install dependencies.

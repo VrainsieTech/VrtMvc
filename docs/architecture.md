@@ -19,7 +19,7 @@ The **View** is responsible for rendering the UI using VrtMVC’s templating eng
 - Located in `src/Views/`
 - Example:
 ```php
-<h1>Hello, {{$name}}!</h1>
+<h1>Hello, {{name}}!</h1>
 ```
 Easily pass data to the view from controller and the templating engine will pass in the variables. No more php opening and closing tags. You can only use the tags where you can't avoid.
 
@@ -31,7 +31,7 @@ The **Controller** acts as an intermediary between Models and Views.
 ```php
 class HomeController extends Controller {
     public function index() {
-        return view('home', ['name' => 'VrtMVC']);
+        return (new Response->view('home', ['name' => 'VrtMVC']));
     }
 }
 ```
@@ -41,7 +41,7 @@ VrtMVC includes a built-in router that directs HTTP requests.
 - Routes are defined in `routes/web.php`
 - Example:
 ```php
-Route::get('/home', [HomeController::class, 'index']);
+$router->get('/home', [HomeController::class, 'index']);
 ```
 
 ## HTTP Layer

@@ -13,7 +13,7 @@ This generates `src/Services/PaymentService.php`.
 ## Basic Service Structure
 A service class contains logic that can be injected into controllers or other parts of the application:
 ```php
-namespace App\Services;
+namespace Vrainsietech\Vrtmvc\Services;
 
 class PaymentService {
     public function processPayment($amount) {
@@ -25,9 +25,10 @@ class PaymentService {
 ## Using Services in Controllers
 Inject a service into a controller:
 ```php
-namespace App\Controllers;
+namespace Vrainsietech\Vrtmvc\Controllers;
 
-use App\Services\PaymentService;
+use Vrainsietech\Vrtmvc\Core\Controller;
+use Vrainsietech\Vrtmvc\Services\PaymentService;
 
 class OrderController extends Controller {
     protected $paymentService;
@@ -46,14 +47,14 @@ class OrderController extends Controller {
 Services are registered in `config/services.php`:
 ```php
 return [
-    'payment' => App\Services\PaymentService::class,
+    'payment' => Vrainsietech\Vrtmvc\Services\PaymentService::class,
 ];
 ```
 
 ## Accessing Services
 Retrieve a service instance using the service container:
 ```php
-$paymentService = app('payment');
+$paymentService = Config::get('payment');
 $result = $paymentService->processPayment(100);
 echo $result;
 ```
@@ -61,5 +62,5 @@ echo $result;
 ## Summary
 - Services allow modular and reusable logic
 - Dependency injection ensures flexibility
-- Registered in `config/services.php` and accessible via `app('service_name')`
+- Registered in `config/services.php` and accessible via `Config::get('service_name')`
 

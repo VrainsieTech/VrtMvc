@@ -3,7 +3,7 @@
 ## Requirements
 Before installing VrtMVC, ensure that your system meets the following requirements:
 
-- **PHP 7 or Higher**
+- **PHP 7.4 or Higher**
 - **Composer** (Dependency Management)
 - **PDO & MySQL Extensions**(Not a must but recommended)
 
@@ -26,7 +26,7 @@ By default, VrtMVC uses **SQLite** for development, but you can switch to **MySQ
 - To use MySQL, edit the `.env` file and update default database settings.
 - To modify the connection dynamically, use:
   ```php
-  config::database(DB_CONNECTION='mysql');
+  config::set('database.default'='mysql');
   ```
 
 ### 4. Project Structure Overview

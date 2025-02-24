@@ -20,7 +20,7 @@ use Vrainsietech\Vrtmvc\Core\Controller;
 class UserController extends Controller {
     public function index() {
         $greeting = "Hello, I am from UserController"
-        return view('user.show', ['greeting' => $greeting]);
+        return (new Response())->view('user.show', ['greeting' => $greeting]);
     }
 }
 ```
@@ -30,7 +30,7 @@ Controllers process requests and return responses:
 ```php
 public function show($id) {
     $user = User::find($id);
-    return view('users.show', ['user' => $user]);
+    return (new Response())->view('users.show', ['user' => $user]);
 }
 ```
 

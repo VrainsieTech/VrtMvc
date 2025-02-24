@@ -1,53 +1,51 @@
 # Error Handling in VrtMVC
 
 ## Overview
-VrtMVC provides a robust error-handling mechanism to catch and log errors effectively. It ensures that errors are reported clearly in development and logged silently in production.
+VrtMVC provides a robust error handling system that ensures smooth debugging and logging of errors. The framework captures PHP errors, exceptions, and fatal shutdown events, logging them for later review.
 
-## Default Error Handling
-By default, VrtMVC captures exceptions and displays a friendly error page in development mode. In production, it logs errors instead of exposing sensitive details.
+## Features
+- Handles PHP errors and uncaught exceptions
+- Logs errors to a specified file
+- Displays errors if debug mode is enabled
+- Handles fatal errors on script shutdown
 
-## Exception Handling
-All unhandled exceptions are caught by VrtMVC's exception handler. Custom exceptions can be created and managed efficiently.
-
-### Creating a Custom Exception
+## Initialization
+To enable error handling in VrtMVC, initialize the error handler in your application:
 ```php
-namespace App\Exceptions;
+use Vrainsietech\Vrtmvc\Core\ErrorHandler;
 
-use Exception;
+ErrorHandler::initialize(true, __DIR__ . '/../storage/logs');
+```
+- The first argument (`true`) enables debug mode (errors will be displayed on the screen).
+- The second argument specifies the directory where error logs should be stored.
 
-class CustomException extends Exception {
-    public function errorMessage() {
-        return "A custom error occurred: " . $this->getMessage();
-    }
-}
+## Handling Errors
+### PHP Errors
+All PHP warnings, notices, and other errors are automatically captured:
+```php
+trigger_error("This is a test error", E_USER_WARNING);
 ```
 
-### Throwing an Exception
+### Exceptions
+Uncaught exceptions are automatically handled:
 ```php
-throw new CustomException("Something went wrong!");
+throw new Exception("Something went wrong!");
 ```
 
-## Logging Errors
-Errors and exceptions are logged into `storage/logs/error.log`.
+### Fatal Errors
+Fatal errors, such as syntax errors or out-of-memory issues, are logged and handled gracefully by the shutdown function.
 
-```php
-use VrtMVC\Core\Logger;
+## Logging
+Errors and exceptions are logged to the specified log file (`logs/error.log` by default). The log format includes timestamps for better tracking.
 
-Logger::error("Database connection failed");
-```
-
-## Custom Error Pages
-You can define custom error pages for different HTTP status codes in `src/Views/errors/`.
-
-For a 404 error page, create `src/Views/errors/404.php`:
-```php
-<h1>Page Not Found</h1>
-<p>Sorry, the page you are looking for does not exist.</p>
-```
+## Customizing Error Handling
+You can modify how errors are handled by updating the `ErrorHandler` class, such as customizing log locations or modifying the display output.
 
 ## Summary
-- VrtMVC captures and logs errors efficiently.
-- Custom exceptions allow fine-grained error control.
-- Errors are logged in `storage/logs/error.log`.
-- Custom error pages can be created for better UX.
+- **Enable error handling** by initializing `ErrorHandler::initialize()`
+- **Capture errors and exceptions** automatically
+- **Log errors** for debugging purposes
+- **Customize error handling** as needed
+
+This system ensures that VrtMVC applications remain stable and maintainable, even in the presence of unexpected issues.
 

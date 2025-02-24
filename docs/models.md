@@ -9,13 +9,16 @@ You can create a model manually or use the CLI:
 ./vrtcli make:model User
 ```
 This generates `src/Models/User.php`.
+Every model you create assumes that it is an equivalent name of the table existing in the database with lowercase and plural.
+- Example:
+- `User` model assumes you have a table named `users` in your database.
 
 ## Basic Model Structure
-A typical model extends the base `Model` class and defines the table name:
+A typical model extends the base `Model` class and defines the table name from model name:
 ```php
-namespace App\Models;
+namespace Vrainsietech\VrtMvc\Models;
 
-use VrtMVC\Core\Model;
+use Vrainsietech\VrtMvc\Core\Model;
 
 class User extends Model {
     protected $table = 'users';
@@ -25,7 +28,7 @@ class User extends Model {
 ## Retrieving Data
 Use built-in methods to fetch data:
 ```php
-$users = User::all(); // Get all users
+$users = User::findAll(); // Get all users
 $user = User::find(1); // Find a user by ID
 ```
 
