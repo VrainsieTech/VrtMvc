@@ -4,7 +4,7 @@ namespace Vrainsietech\Vrtmvc;
 /**
  * Main Database Connection Class.
  * 
- * Creates the db connection using a procedural approach for MySQLi Database as default Database. The Db defaults are used first to connect to the db to enable creation of a new database, user and granting all priviledges to the user. The values used are sourced from the initial call of the class dbCreate Method. A few more more MySQLi CRUD database operations are added and can be called anywhere in any other class(s).
+ * Creates the db connection using a procedural approach for MySQLi Database as default Production Database. The Db defaults are used first to connect to the db to enable creation of a new database, user and granting all priviledges to the user. The values used are sourced from the initial call of the class dbCreate Method. A few more more MySQLi CRUD database operations are added and can be called anywhere in any other class(s).
  * 
  * @return object of mysqli connection and other usefull generals.
  * 
@@ -14,7 +14,7 @@ namespace Vrainsietech\Vrtmvc;
  	/**
      * New Database Creation for Every New Organization.
      * 
-     * Not everyone using this software might have access  directly to Cpanel to do the database creation, so this method allows a universal usage of the software on the go. The Database created has it's own unique name and unique user having all priviledges by default. Either way, you can still pass in your specific dbname, user and password. By default. This data is added to config file in the organization's specific folder. Once user registers as an organization, a specific unique folder is created using a some values provided during registration, or defaults in the config file if none is provided.
+     * Not everyone using this software might have access  directly to Cpanel to do the database creation, so this method allows a universal usage of the software on the go. The Database created has it's own unique name and unique user having all priviledges by default. Either way, you can still pass in your specific dbname, user and password. By default, this data is added to database file in the config folder.
      * 
      * @return int 1 on success.
      * 
@@ -24,9 +24,6 @@ namespace Vrainsietech\Vrtmvc;
  	function dbCreate() {
 
       $dbName =getenv(DB_NAME);
-      $dbUser =getenv(DB_USER);
-      $dbPass =getenv(DB_PASS);
-      $dbHost =getenv(DB_HOST);
 
  		//Get root connection
  		$con = self::rootConn();
@@ -37,7 +34,7 @@ namespace Vrainsietech\Vrtmvc;
  			if($dbc){
  				return 1;
  			} else {
- 				throw new Exception("Database Creation Failed. ".mysqli_connect_error($dbc));
+ 				throw new Exception("Database Creation Failed.");
  			}
  		}
 
@@ -47,7 +44,7 @@ namespace Vrainsietech\Vrtmvc;
  	  /** 
  		 * Creates a priviledged user.
  		 * 
- 		 * After Database Creation, this method executes by default and uses the username provided in the config file and the created database. The method can also be executed manually if there is need to create a different user for the same database. Each time, auto called or manually called, the user created will allways have all database priviledges. That is the default setting. In case you create a new user on the same database. Update settings on the config file.
+ 		 * After Database Creation, this method executes by default and uses the username provided in the config file and the created database. The method can also be executed manually if there is need to create a different user for the same database. Each time, auto called or manually called, the user created will always have all database priviledges. That is the default setting. In case you create a new user on the same database. Update settings on the config file.
  		 * 
  		 * @param string $dbpass
  		 * @param string $dbuser
@@ -66,10 +63,10 @@ namespace Vrainsietech\Vrtmvc;
  		GRANT ALL PRIVILEGES ON $dbName.* TO '$dbuser'@'localhost';
  		FLUSH PRIVILEGES";
 
- 		if(mysqli_querry($con,$sql)){
+ 		if(mysqli_multi_query($con,$sql)){
  			return 1;
  		} else {
- 			throw new Exception("Failed to Create new User. ".mysqli_connect_error($con));
+ 			throw new Exception("Failed to Create new User.");
  		}
 
 
@@ -95,7 +92,7 @@ namespace Vrainsietech\Vrtmvc;
  		if($vrtdb){
  			return $vrtdb;
  		} else {
- 			throw new Exception("Connection Failed. ".mysqli_connect_error($vrtdb));
+ 			throw new Exception("Connection Failed.");
  		}
  	}
 
@@ -244,7 +241,7 @@ namespace Vrainsietech\Vrtmvc;
             $bg= substr($bg,0,5);
         }
       return "<div id='$ids' class='alert $bg'>
-        $ms
+        $msg
         <script>swal('$ids','$redirect'); </script>
         </div>";
     }
@@ -269,7 +266,7 @@ namespace Vrainsietech\Vrtmvc;
  		$con = mysqli_connect($host,$ruser,$rpass);
 
  		if(!$con){
- 			throw new Exception("Root Connection Failed: ".mysqli_connect_error($con));
+ 			throw new Exception("Root Connection Failed: ");
  		} else {
  			return $con;
  		}
