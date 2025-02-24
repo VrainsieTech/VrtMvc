@@ -47,7 +47,7 @@ class RedirectResponse extends Response
     {
         global $router; 
         if (!isset($router)){
-            throw new \Exception('Router is not defined');
+            throw new Exception('Router is not defined');
         }
         $url = $router->generate($name, $params);
         return new static($url);
